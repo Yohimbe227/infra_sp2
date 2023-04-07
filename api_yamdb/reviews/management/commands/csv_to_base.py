@@ -4,7 +4,6 @@ from typing import List
 
 from django.conf import settings
 from django.core.management import BaseCommand
-
 from reviews.models import Category, Comment, Genre, GenreTitle, Review, Title
 from users.models import User
 
@@ -26,8 +25,7 @@ class Command(BaseCommand):
     )
 
     def check_files(self) -> None:
-        """
-        Folder presence check.
+        """Folder presence check.
 
         Сheck for each file in the tuple `files_to_models`.
         Returns:
@@ -35,19 +33,22 @@ class Command(BaseCommand):
 
         Raises:
             FileNotFoundError: Файл не найден.
-        """
 
+        """
         for file_name, _ in self.files_to_models:
             if not path_become(file_name).is_file():
                 raise FileNotFoundError(f'{file_name} not exist')
 
     def to_base(self):
-        """
-        Transfer data from csv files in the `static/data` directory
-        to the database. The names of the columns in the files and fields
+        """Transfer data from csv files in the `static/data` directory
+        to the database.
+
+        The names of the columns in the files and fields
         in the corresponding models must match.
+
         Returns:
             None.
+
         """
         for file_name, model in self.files_to_models:
             file: Path = path_become(file_name)
@@ -68,8 +69,7 @@ class Command(BaseCommand):
                 model.objects.bulk_create(date_list, ignore_conflicts=True)
 
     def handle(self, *args, **options) -> None:
-        """
-        Handler for the management command `csv_to_base`.
+        """Handler for the management command `csv_to_base`.
 
         Args:
             *args: not used.

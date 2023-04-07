@@ -1,5 +1,13 @@
 from uuid import uuid4
 
+from api.v1.filters import TitleFilter
+from api.v1.permissions import (AdminOrReadOnly, IsAdminUser,
+                                IsUserWithPowerOrReadOnly)
+from api.v1.serializers import (AdminSerializer, CategorySerializer,
+                                CommentSerializer, CustomUserSerializer,
+                                GenreSerializer, RegistrationSerializer,
+                                ReviewSerializer, TitleReadSerializer,
+                                TitleWriteSerializer, TokenObtainSerializer)
 from django.core.mail import send_mail
 from django.db.models import Avg
 from django.http import HttpRequest
@@ -11,25 +19,6 @@ from rest_framework.exceptions import MethodNotAllowed
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet, ModelViewSet
 from rest_framework_simplejwt.tokens import AccessToken
-
-from api.v1.filters import TitleFilter
-from api.v1.permissions import (
-    AdminOrReadOnly,
-    IsAdminUser,
-    IsUserWithPowerOrReadOnly,
-)
-from api.v1.serializers import (
-    AdminSerializer,
-    CategorySerializer,
-    CommentSerializer,
-    CustomUserSerializer,
-    GenreSerializer,
-    RegistrationSerializer,
-    ReviewSerializer,
-    TitleReadSerializer,
-    TitleWriteSerializer,
-    TokenObtainSerializer,
-)
 from reviews.models import Category, Genre, Review, Title
 from users.models import User
 
@@ -72,8 +61,8 @@ class TitleView(ModelViewSet):
         *args: list,
         **kwargs: dict,
     ):
-        """
-        Override Partial Update Code if desired.
+        """Override Partial Update Code if desired.
+
         Args:
             request: HTTPRequest.
             *args: not used.

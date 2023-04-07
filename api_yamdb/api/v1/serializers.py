@@ -4,7 +4,6 @@ from django.contrib.auth.validators import UnicodeUsernameValidator
 from django.utils import timezone
 from rest_framework import serializers
 from rest_framework.validators import UniqueTogetherValidator
-
 from reviews.models import Category, Comment, Genre, Review, Title
 
 User = get_user_model()
@@ -119,9 +118,7 @@ class ReviewSerializer(serializers.ModelSerializer):
         if self.context['request'].method != 'POST':
             return data
         user = self.context['request'].user
-        title_id = (
-            self.context['request'].parser_context['kwargs']['title_id']
-        )
+        title_id = self.context['request'].parser_context['kwargs']['title_id']
         if Review.objects.filter(author=user, title__id=title_id).exists():
             raise serializers.ValidationError(
                 'Вы уже оставили отзыв на данное произведение!'
@@ -149,8 +146,7 @@ class CommentSerializer(serializers.ModelSerializer):
 class RegistrationSerializer(serializers.Serializer):
 
     username = serializers.CharField(
-        max_length=settings.USERNAME_MAX_LENGTH,
-        required=True
+        max_length=settings.USERNAME_MAX_LENGTH, required=True
     )
     email = serializers.EmailField(
         max_length=settings.AUTH_MAX_LENGTH,

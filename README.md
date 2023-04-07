@@ -14,74 +14,30 @@
 [@1darkhorse1](https://www.github.com/1darkhorse1) | [@Yohimbe227](https://www.github.com/Yohimbe227) | [@Jelister203](https://www.github.com/Jelister203)
 
 ## Installation
-
-Клонировать репозиторий и перейти в него в командной строке:
+Создайте в директории infra файл .env по шаблону:
 ```bash
-git clone https://github.com/1darkhorse1/api_yamdb.git
+    DB_ENGINE=django.db.backends.postgresql
+    DB_NAME=postgres
+    POSTGRES_USER=postgres
+    POSTGRES_PASSWORD=your_password # пароль для подключения к БД (установите свой)
+    DB_HOST=db
+    DB_PORT=5432
 ```
-```bash
-cd api_yamdb/
-```
-Cоздать и активировать виртуальное окружение:
-```bash
-python -m venv venv
-```
-```bash
-source env/bin/activate
-```
-Установить зависимости из файла requirements.txt:
-```bash
-python -m pip install --upgrade pip
-```
-```bash
-pip install -r requirements.txt
-```
-Выполнить миграции:
+Для запуска приложения необходимо:  
+выполнить миграции:
 ```bash
 python manage.py migrate
 ```
-Запустить проект:
+создать суперпользователя:
 ```bash
-python manage.py runserver
+python manage.py createsuperuser
 ```
-
+собрать статику:
+```bash
+python manage.py collectstatic --no-input
+```
 ## API Enpoints
-
-```http
-GET, POST /api/v1/users/
-GET, PATCH, DELETE /api/v1/users/{username}/
-GET, PATCH /api/v1/users/me/
-```
-
-```http
-GET, POST /api/v1/titles/
-GET, PATCH, DELETE /api/v1/titles/{title_id}/
-```
-```http
-GET, POST /api/v1/categories/
-DEL /api/v1/categories/{slug}/
-```
-```http
-GET, POST /api/v1/genres/
-DELETE /api/v1/genres/{slug}/
-```
-```http
-GET, POST /api/v1/titles/{title_id}/reviews/
-GET, PATCH, DELELE /api/v1/titles/{title_id}/reviews/{review_id}/
-```
-```http
-GET, POST/api/v1/titles/{title_id}/reviews/{review_id}/comments/
-GET, PATCH, DELELE /api/v1/titles/{title_id}/reviews/{review_id}/comments/{comment_id}/
-```
-### Without token authentication, limited functionality
-Urls by which you can send GET requests to API: 
-* "categories": /api/v1/categories/, 
-* "genres": "/api/v1/genres/", 
-* "titles": "/api/v1/titles/", 
-* "reviews": "/api/v1/titles/{title_id}/reviews/", 
-* "comments": "/api/v1/titles/{title_id}/reviews/{review_id}/comments/" 
-* "users": "/api/v1/users/"
-
+http://127.0.0.1/api/schema/redoc
 ### Authentication
 * POST requests /api/v1/auth/signup/: {"username": "user", "email": "example@example.ru"}
 * copy the confirmation code in the sent_emails folder
