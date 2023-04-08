@@ -17,6 +17,7 @@ class Command(BaseCommand):
 
         Returns:
             None.
+
         """
         Genre.objects.all().delete()
         Title.objects.all().delete()

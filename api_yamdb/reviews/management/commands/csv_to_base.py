@@ -39,12 +39,13 @@ class Command(BaseCommand):
             if not path_become(file_name).is_file():
                 raise FileNotFoundError(f'{file_name} not exist')
 
-    def to_base(self):
-        """Transfer data from csv files in the `static/data` directory
-        to the database.
+    def to_base(self) -> None:
+        """Transfer data from csv files to the database.
 
-        The names of the columns in the files and fields
-        in the corresponding models must match.
+        Note:
+            Csv files must be in the `static/data` directory
+            The names of the columns in the files and fields
+            in the corresponding models must match.
 
         Returns:
             None.

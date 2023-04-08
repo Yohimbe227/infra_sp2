@@ -128,18 +128,6 @@ class ReviewViewSet(viewsets.ModelViewSet):
     serializer_class = ReviewSerializer
     permission_classes = (IsUserWithPowerOrReadOnly,)
 
-    # def create(self, request, *args, **kwargs):
-    #     if not Title.objects.filter(pk=self.kwargs.get('title_id')).exists():
-    #         return Response(
-    #             'Check title id', status=status.HTTP_404_NOT_FOUND
-    #         ) # без этого выбрасывалась 400
-    #     if Review.objects.filter(author=self.request.user).count():
-    #         return Response(
-    #             'You have already made review on this title',
-    #             status=status.HTTP_400_BAD_REQUEST,
-    #         )
-    #     return super().create(request, *args, **kwargs)
-
     def get_title(self) -> Title:
         """
         Получаем объект `Title` по его `id`.
@@ -153,7 +141,7 @@ class ReviewViewSet(viewsets.ModelViewSet):
         title = get_object_or_404(Title, id=self.kwargs.get('title_id'))
         return title.reviews.all().order_by('-pub_date')
 
-    def perform_create(self, serializer):
+    def perform_create(self, serializer: ReviewSerializer) -> None:
         serializer.save(title=self.get_title(), author=self.request.user)
 
 
@@ -162,7 +150,7 @@ class CommentViewSet(viewsets.ModelViewSet):
     serializer_class = CommentSerializer
     permission_classes = (IsUserWithPowerOrReadOnly,)
 
-    def perform_create(self, serializer):
+    def perform_create(self, serializer: ReviewSerializer) -> None:
         review = get_object_or_404(Review, id=self.kwargs.get('review_id'))
         serializer.save(
             review=review,

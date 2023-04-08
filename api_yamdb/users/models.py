@@ -51,7 +51,7 @@ class User(AbstractUser):
         return self.role == UserRole.MODERATOR
 
     @property
-    def is_admin(self):
+    def is_admin(self) -> bool:
         return self.role == UserRole.ADMIN or self.is_superuser
 
     class Meta:

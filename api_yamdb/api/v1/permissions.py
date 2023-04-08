@@ -3,22 +3,23 @@ from rest_framework import permissions
 
 
 class IsAdminUser(permissions.BasePermission):
-    """
-    Access level - only for admin
-    """
+    """Access level - only for admin."""
 
-    def has_permission(self, request, view):
+    def has_permission(self, request: HttpRequest, view) -> bool:
+        del view
         if request.user.is_authenticated:
             return request.user.is_admin
 
 
 class AdminOrReadOnly(permissions.BasePermission):
-    """
+    """Access level.
+
     Get method is available for all users,
     PATCH, DELETE - only for administrator
-    """
 
-    def has_permission(self, request, view):
+    """
+    def has_permission(self, request: HttpRequest, view) -> bool:
+        del view
         if request.user.is_authenticated and request.method in (
             'PATCH',
             'POST',
