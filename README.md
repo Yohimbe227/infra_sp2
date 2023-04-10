@@ -7,7 +7,7 @@ _**Основной стэк**_:
 
 **Проект был выполнен в учебных целях, чтобы попрактиковаться в командной
 работе с библиотеками Django, Django REST fraemwork и технологией Docker.**
-## Содержание и возможности
+## Содержание и возможности/Content and Features
 
 Проект YaMDb собирает отзывы пользователей на произведения.
 
@@ -20,13 +20,13 @@ _**Основной стэк**_:
 * Благодарные или возмущённые пользователи оставляют к произведениям текстовые
 отзывы и ставят произведению оценку.
 
-## Authors
+## Авторы/Authors
 
 | Никулин Илья                                       |                   Каманин Юрий                   | Решетняк Михаил                                    |
 |----------------------------------------------------|:------------------------------------------------:|:---------------------------------------------------|
 | [@1darkhorse1](https://www.github.com/1darkhorse1) | [@Yohimbe227](https://www.github.com/Yohimbe227) | [@Jelister203](https://www.github.com/Jelister203) |
 
-## Installation
+## Установка/Installation
 
 Создайте в директории infra файл .env по шаблону:
 
@@ -58,11 +58,11 @@ python manage.py createsuperuser
 python manage.py collectstatic --no-input
 ```
 
-## API Enpoints
+## API Эндпоинты/API Enpoints
 
 <http://127.0.0.1/api/schema/redoc>
 
-### Authentication
+### Авторизация/Authentication
 
 * POST requests /api/v1/auth/signup/:
 {"username": "user", "email": "example@example.ru"}
@@ -70,7 +70,7 @@ python manage.py collectstatic --no-input
 * POST request /api/v1/auth/token/:
 {"username": "user111", "confirmation_code": ""}
 
-## Filling the database from a csv file
+### Заполнение базы данных и csv файла/Filling the database from a csv file
 
 The files must be located in the /static/data/ directory.
 Valid names and headers:
